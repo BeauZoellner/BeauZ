@@ -62,6 +62,19 @@ export default function CartPage() {
       status: "pending",
     });
     if (!error) {
+      fetch("/api/order-notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          dispensary: user.dispensary || "",
+          address: user.address || "",
+          contact: user.contact || "",
+          phone: user.phone || "",
+          email: user.email,
+          items: cart,
+          notes,
+        }),
+      }).catch(() => {});
       localStorage.removeItem("tb-cart");
       setCart([]);
       setSubmitted(true);

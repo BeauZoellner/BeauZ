@@ -16,6 +16,8 @@ const STRAIN_IMAGES: Record<string, string> = {
   "rancid-rainbows": "/images/rancid-rainbows.png",
 };
 
+const IN_STOCK = ["lemon-drop", "runtz", "la-rosa", "tamalez", "garlic-cookies", "wedding-cake", "ice-cream-cake"];
+
 const STRAINS: Record<string, { name: string; type: string; thc: string; desc: string }> = {
   "animal-heat": { name: "Animal Heat", type: "Hybrid", thc: "32%", desc: "A powerful hybrid with an intense terpene profile. Earthy, pungent, and heavy-hitting." },
   "apples-n-juice": { name: "Apples N Juice", type: "Hybrid", thc: "30%", desc: "Sweet and fruity with a smooth finish. Perfect for customers who love flavor." },
@@ -46,6 +48,7 @@ export default function StrainDetail() {
   const params = useParams();
   const slug = params.slug as string;
   const strain = STRAINS[slug];
+  const soldOut = !IN_STOCK.includes(slug);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
 
@@ -113,21 +116,36 @@ export default function StrainDetail() {
           <p style={{ fontSize: "16px", color: "#39ff14", fontWeight: 700, marginBottom: "24px" }}>{strain.thc} THC</p>
           <p style={{ fontSize: "15px", color: "#888", lineHeight: 1.7, marginBottom: "32px" }}>{strain.desc}</p>
 
-          <div style={{ borderTop: "1px solid #1a1a1a", paddingTop: "24px", marginBottom: "24px" }}>
-            <p style={{ fontSize: "13px", color: "#555", marginBottom: "12px", fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase" }}>Quantity (units)</p>
-            <div className="tb-qty">
-              <button className="tb-qty__btn tb-qty__btn--minus" onClick={() => setQty(Math.max(1, qty - 1))}>−</button>
-              <span style={{ minWidth: "40px", textAlign: "center", fontSize: "18px", fontWeight: 700 }}>{qty}</span>
-              <button className="tb-qty__btn tb-qty__btn--plus" onClick={() => setQty(qty + 1)}>+</button>
+          {soldOut ? (
+            <div style={{ borderTop: "1px solid #1a1a1a", paddingTop: "24px", marginBottom: "24px" }}>
+              <div style={{
+                padding: "16px 24px", borderRadius: "12px", textAlign: "center",
+                background: "rgba(255,68,68,0.1)", border: "1px solid rgba(255,68,68,0.2)",
+              }}>
+                <span style={{ fontSize: "18px", fontWeight: 900, color: "#ff4444", letterSpacing: "2px" }}>SOLD OUT</span>
+                <p style={{ fontSize: "13px", color: "#888", marginTop: "8px" }}>This strain is currently unavailable. Check back soon for restocks.</p>
+              </div>
             </div>
-          </div>
+          ) : (
+            <>
+              <div style={{ borderTop: "1px solid #1a1a1a", paddingTop: "24px", marginBottom: "24px" }}>
+                <p style={{ fontSize: "13px", color: "#39ff14", marginBottom: "12px", fontWeight: 600 }}>In Stock — 2,000 8ths available</p>
+                <p style={{ fontSize: "13px", color: "#555", marginBottom: "12px", fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase" }}>Quantity (units)</p>
+                <div className="tb-qty">
+                  <button className="tb-qty__btn tb-qty__btn--minus" onClick={() => setQty(Math.max(1, qty - 1))}>−</button>
+                  <span style={{ minWidth: "40px", textAlign: "center", fontSize: "18px", fontWeight: 700 }}>{qty}</span>
+                  <button className="tb-qty__btn tb-qty__btn--plus" onClick={() => setQty(qty + 1)}>+</button>
+                </div>
+              </div>
 
-          <button onClick={addToCart} className="tb-btn tb-btn--primary tb-btn--full" style={{ marginBottom: "12px" }}>
-            {added ? "✓ Added to Cart!" : "Add to Cart"}
-          </button>
-          <Link href="/cart" className="tb-btn tb-btn--outline tb-btn--full" style={{ textAlign: "center", display: "block" }}>
-            View Cart
-          </Link>
+              <button onClick={addToCart} className="tb-btn tb-btn--primary tb-btn--full" style={{ marginBottom: "12px" }}>
+                {added ? "✓ Added to Cart!" : "Add to Cart"}
+              </button>
+              <Link href="/cart" className="tb-btn tb-btn--outline tb-btn--full" style={{ textAlign: "center", display: "block" }}>
+                View Cart
+              </Link>
+            </>
+          )}
 
           <div style={{ marginTop: "32px", padding: "16px", background: "rgba(57,255,20,0.05)", border: "1px solid rgba(57,255,20,0.1)", borderRadius: "10px" }}>
             <p style={{ fontSize: "13px", color: "#888" }}>

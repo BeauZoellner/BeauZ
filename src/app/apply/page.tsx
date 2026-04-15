@@ -38,7 +38,7 @@ export default function ApplyPage() {
       contact_name: form.contact,
       phone: form.phone,
       message: form.message,
-      status: "pending",
+      status: "approved",
     });
 
     setSubmitted(true);
@@ -49,13 +49,11 @@ export default function ApplyPage() {
     return (
       <div style={{ maxWidth: "600px", margin: "0 auto", padding: "100px 24px", textAlign: "center" }}>
         <div style={{ fontSize: "64px", marginBottom: "24px" }}>✓</div>
-        <h1 style={{ fontSize: "36px", fontWeight: 900, marginBottom: "16px" }}>Application Submitted!</h1>
-        <p style={{ fontSize: "16px", color: "#888", marginBottom: "16px" }}>
-          We&apos;ll review your application and get back within 24 hours.
+        <h1 style={{ fontSize: "36px", fontWeight: 900, marginBottom: "16px" }}>You&apos;re Approved!</h1>
+        <p style={{ fontSize: "16px", color: "#888", marginBottom: "32px" }}>
+          Your wholesale account is ready. Log in now to browse strains and place your first order.
         </p>
-        <p style={{ fontSize: "14px", color: "#555" }}>
-          Check your email to verify your account. Once approved, you can log in and start ordering.
-        </p>
+        <a href="/login" className="tb-btn tb-btn--primary" style={{ display: "inline-block" }}>Log In Now</a>
       </div>
     );
   }

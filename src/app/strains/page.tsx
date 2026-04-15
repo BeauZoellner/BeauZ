@@ -15,24 +15,26 @@ const STRAIN_IMAGES: Record<string, string> = {
   "rancid-rainbows": "/images/rancid-rainbows.png",
 };
 
+const IN_STOCK = ["lemon-drop", "runtz", "la-rosa", "tamalez", "garlic-cookies", "wedding-cake", "ice-cream-cake"];
+
 const ALL_STRAINS = [
-  { name: "Animal Heat", type: "Hybrid", thc: "32%", slug: "animal-heat" },
-  { name: "Apples N Juice", type: "Hybrid", thc: "30%", slug: "apples-n-juice" },
-  { name: "Baby Zereal", type: "Indica", thc: "29%", slug: "baby-zereal" },
-  { name: "Garlic Cookies", type: "Indica", thc: "35%", slug: "garlic-cookies" },
-  { name: "Ice Cream Cake", type: "Indica", thc: "31%", slug: "ice-cream-cake" },
-  { name: "La Rosa", type: "Hybrid", thc: "28%", slug: "la-rosa" },
-  { name: "Lemon Cherry Gelato", type: "Hybrid", thc: "30%", slug: "lemon-cherry-gelato" },
-  { name: "Lemon Drop", type: "Sativa", thc: "27%", slug: "lemon-drop" },
-  { name: "Medusa", type: "Indica", thc: "34%", slug: "medusa" },
-  { name: "Runtz", type: "Hybrid", thc: "31%", slug: "runtz" },
-  { name: "Skywalker OG", type: "Indica", thc: "33%", slug: "skywalker-og" },
-  { name: "Tamalez", type: "Indica", thc: "29%", slug: "tamalez" },
-  { name: "Wedding Cake", type: "Hybrid", thc: "32%", slug: "wedding-cake" },
-  { name: "Project Z", type: "Sativa", thc: "33%", slug: "project-z" },
-  { name: "Tear Gas", type: "Sativa", thc: "32%", slug: "tear-gas" },
-  { name: "Bacio Gelato", type: "Hybrid", thc: "30%", slug: "bacio-gelato" },
-  { name: "Jealousy", type: "Hybrid", thc: "31%", slug: "jealousy" },
+  { name: "Lemon Drop", type: "Sativa", thc: "27%", slug: "lemon-drop", inventory: 2000 },
+  { name: "Runtz", type: "Hybrid", thc: "31%", slug: "runtz", inventory: 2000 },
+  { name: "La Rosa", type: "Hybrid", thc: "28%", slug: "la-rosa", inventory: 2000 },
+  { name: "Tamalez", type: "Indica", thc: "29%", slug: "tamalez", inventory: 2000 },
+  { name: "Garlic Cookies", type: "Indica", thc: "35%", slug: "garlic-cookies", inventory: 2000 },
+  { name: "Wedding Cake", type: "Hybrid", thc: "32%", slug: "wedding-cake", inventory: 2000 },
+  { name: "Ice Cream Cake", type: "Indica", thc: "31%", slug: "ice-cream-cake", inventory: 2000 },
+  { name: "Animal Heat", type: "Hybrid", thc: "32%", slug: "animal-heat", inventory: 0 },
+  { name: "Apples N Juice", type: "Hybrid", thc: "30%", slug: "apples-n-juice", inventory: 0 },
+  { name: "Baby Zereal", type: "Indica", thc: "29%", slug: "baby-zereal", inventory: 0 },
+  { name: "Lemon Cherry Gelato", type: "Hybrid", thc: "30%", slug: "lemon-cherry-gelato", inventory: 0 },
+  { name: "Medusa", type: "Indica", thc: "34%", slug: "medusa", inventory: 0 },
+  { name: "Skywalker OG", type: "Indica", thc: "33%", slug: "skywalker-og", inventory: 0 },
+  { name: "Project Z", type: "Sativa", thc: "33%", slug: "project-z", inventory: 0 },
+  { name: "Tear Gas", type: "Sativa", thc: "32%", slug: "tear-gas", inventory: 0 },
+  { name: "Bacio Gelato", type: "Hybrid", thc: "30%", slug: "bacio-gelato", inventory: 0 },
+  { name: "Jealousy", type: "Hybrid", thc: "31%", slug: "jealousy", inventory: 0 },
 ];
 
 function typeColor(type: string) {
@@ -73,41 +75,52 @@ export default function StrainsPage() {
 
       {/* Strain grid */}
       <div className="tb-product-grid">
-        {filtered.map((strain) => (
-          <Link href={`/strains/${strain.slug}`} key={strain.slug}>
-            <div className="tb-product-card">
-              <div className="tb-product-card__image" style={{ background: "#111" }}>
-                {STRAIN_IMAGES[strain.slug] ? (
-                  <Image
-                    src={STRAIN_IMAGES[strain.slug]}
-                    alt={strain.name}
-                    fill
-                    style={{ objectFit: "cover" }}
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                ) : (
-                  <div style={{
-                    position: "absolute", inset: 0,
-                    background: `radial-gradient(circle at 50% 60%, ${typeColor(strain.type)}15, transparent 70%)`,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                  }}>
-                    <span style={{ fontSize: "48px", opacity: 0.15, fontWeight: 900 }}>{strain.name.charAt(0)}</span>
+        {filtered.map((strain) => {
+          const soldOut = strain.inventory === 0;
+          return (
+            <Link href={`/strains/${strain.slug}`} key={strain.slug}>
+              <div className="tb-product-card" style={soldOut ? { opacity: 0.5 } : {}}>
+                <div className="tb-product-card__image" style={{ background: "#111" }}>
+                  {STRAIN_IMAGES[strain.slug] ? (
+                    <Image
+                      src={STRAIN_IMAGES[strain.slug]}
+                      alt={strain.name}
+                      fill
+                      style={{ objectFit: "cover", ...(soldOut ? { filter: "grayscale(80%)" } : {}) }}
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  ) : (
+                    <div style={{
+                      position: "absolute", inset: 0,
+                      background: `radial-gradient(circle at 50% 60%, ${typeColor(strain.type)}15, transparent 70%)`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                    }}>
+                      <span style={{ fontSize: "48px", opacity: 0.15, fontWeight: 900 }}>{strain.name.charAt(0)}</span>
+                    </div>
+                  )}
+                  {soldOut && (
+                    <div style={{
+                      position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
+                      background: "rgba(0,0,0,0.6)", zIndex: 2,
+                    }}>
+                      <span style={{ fontSize: "18px", fontWeight: 900, color: "#ff4444", letterSpacing: "3px", textTransform: "uppercase" }}>SOLD OUT</span>
+                    </div>
+                  )}
+                  <div className="tb-product-card__badge" style={{ color: typeColor(strain.type) }}>
+                    {strain.type}
                   </div>
-                )}
-                <div className="tb-product-card__badge" style={{ color: typeColor(strain.type) }}>
-                  {strain.type}
+                </div>
+                <div className="tb-product-card__content">
+                  <div className="tb-product-card__name">{strain.name}</div>
+                  <div className="tb-product-card__meta">
+                    <span className="tb-product-card__price">{soldOut ? "Currently unavailable" : "In Stock — 2,000 8ths"}</span>
+                    <span className="tb-product-card__cta">{soldOut ? "Sold Out" : "View Details →"}</span>
+                  </div>
                 </div>
               </div>
-              <div className="tb-product-card__content">
-                <div className="tb-product-card__name">{strain.name}</div>
-                <div className="tb-product-card__meta">
-                  <span className="tb-product-card__price">Wholesale pricing available</span>
-                  <span className="tb-product-card__cta">View Details →</span>
-                </div>
-              </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

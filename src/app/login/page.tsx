@@ -32,17 +32,9 @@ export default function LoginPage() {
         background: "linear-gradient(135deg, #0a0a0a, #0f1a0f)",
         position: "relative", overflow: "hidden", padding: "48px",
       }}>
-        <div style={{
-          position: "absolute", top: "30%", left: "20%", width: "400px", height: "400px",
-          background: "radial-gradient(circle, rgba(57,255,20,0.08), transparent 70%)",
-          filter: "blur(60px)", pointerEvents: "none",
-        }} />
         <Image src="/images/terpbunny-logo.png" alt="TerpBunny" width={300} height={120}
           style={{ height: "120px", width: "auto", objectFit: "contain", position: "relative",
-            filter: "drop-shadow(0 0 12px rgba(57,255,20,0.5))" }} />
-        <p style={{ color: "rgba(255,255,255,0.3)", letterSpacing: "6px", textTransform: "uppercase", fontSize: "13px", marginTop: "16px", position: "relative" }}>
-          LETS PLAY
-        </p>
+            }} />
         <p style={{ color: "#555", fontSize: "14px", marginTop: "24px", textAlign: "center", maxWidth: "300px", position: "relative" }}>
           Premium wholesale cannabis platform for licensed retailers
         </p>

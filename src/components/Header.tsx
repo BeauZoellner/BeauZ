@@ -17,7 +17,7 @@ export default function Header() {
           alt="TerpBunny"
           width={220}
           height={80}
-          style={{ height: "65px", width: "auto", objectFit: "contain", filter: "drop-shadow(0 0 8px rgba(57,255,20,0.3))" }}
+          style={{ height: "65px", width: "auto", objectFit: "contain" }}
           priority
         />
       </Link>

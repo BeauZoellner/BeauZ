@@ -37,7 +37,7 @@ export default function Home() {
             alt="TerpBunny"
             width={400}
             height={150}
-            style={{ height: "120px", width: "auto", objectFit: "contain", margin: "0 auto 32px" }}
+            style={{ height: "180px", width: "auto", objectFit: "contain", margin: "0 auto 32px" }}
             priority
           />
           <h1 style={{

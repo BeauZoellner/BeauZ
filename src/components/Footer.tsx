@@ -14,7 +14,7 @@ export default function Footer() {
         <div>
           <Image src="/images/terpbunny-logo.png" alt="TerpBunny" width={140} height={50}
             style={{ height: "50px", width: "auto", objectFit: "contain", marginBottom: "16px",
-              filter: "drop-shadow(0 0 8px rgba(57,255,20,0.3))" }} />
+            }} />
           <p style={{ fontSize: "14px", color: "#555", lineHeight: 1.7, maxWidth: "280px" }}>
             Premium wholesale cannabis for licensed Oklahoma dispensaries. Hand-selected strains, craft-grown flower.
           </p>

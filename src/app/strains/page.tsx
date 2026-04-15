@@ -13,6 +13,7 @@ const STRAIN_IMAGES: Record<string, string> = {
   "tamalez": "/images/tamalez.png",
   "tear-gas": "/images/tear-gas.png",
   "rancid-rainbows": "/images/rancid-rainbows.png",
+  "wedding-cake": "/images/wedding-cake.png",
 };
 
 const IN_STOCK = ["lemon-drop", "runtz", "la-rosa", "tamalez", "garlic-cookies", "wedding-cake", "ice-cream-cake"];

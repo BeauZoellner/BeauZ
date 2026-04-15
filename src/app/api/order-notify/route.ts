@@ -1,9 +1,13 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error("RESEND_API_KEY missing — skipping email send");
+    return NextResponse.json({ ok: false, error: "missing_api_key" }, { status: 500 });
+  }
+  const resend = new Resend(apiKey);
   const { dispensary, address, contact, phone, email, items, notes } = await req.json();
 
   const itemLines = items

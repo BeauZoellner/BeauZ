@@ -122,7 +122,14 @@ export default function StrainDetail() {
             fontSize: "13px", fontWeight: 700, marginBottom: "12px",
           }}>{strain.type}</span>
           <h1 style={{ fontSize: "36px", fontWeight: 900, letterSpacing: "-1px", marginBottom: "8px" }}>{strain.name}</h1>
-          <p style={{ fontSize: "16px", color: "#39ff14", fontWeight: 700, marginBottom: "24px" }}>{strain.thc} THC</p>
+          <p style={{ fontSize: "16px", color: "#39ff14", fontWeight: 700, marginBottom: "8px" }}>{strain.thc} THC</p>
+          <div style={{ marginBottom: "24px" }}>
+            <span style={{ fontSize: "22px", fontWeight: 800, color: "#fff" }}>$12.50</span>
+            <span style={{ fontSize: "14px", color: "#888" }}> / 8th</span>
+            <span style={{ fontSize: "13px", color: "#555", margin: "0 8px" }}>|</span>
+            <span style={{ fontSize: "16px", fontWeight: 700, color: "#39ff14" }}>$10.00</span>
+            <span style={{ fontSize: "13px", color: "#888" }}> / 8th at 640+</span>
+          </div>
           <p style={{ fontSize: "15px", color: "#888", lineHeight: 1.7, marginBottom: "32px" }}>{strain.desc}</p>
 
           {soldOut ? (
@@ -141,11 +148,22 @@ export default function StrainDetail() {
                 <p style={{ fontSize: "13px", color: "#39ff14", marginBottom: "12px", fontWeight: 600 }}>In Stock</p>
                 {loggedIn ? (
                   <>
-                    <p style={{ fontSize: "13px", color: "#555", marginBottom: "12px", fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase" }}>Quantity (units)</p>
+                    <p style={{ fontSize: "13px", color: "#555", marginBottom: "12px", fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase" }}>Quantity (8ths)</p>
                     <div className="tb-qty">
                       <button className="tb-qty__btn tb-qty__btn--minus" onClick={() => setQty(Math.max(1, qty - 1))}>−</button>
                       <span style={{ minWidth: "40px", textAlign: "center", fontSize: "18px", fontWeight: 700 }}>{qty}</span>
                       <button className="tb-qty__btn tb-qty__btn--plus" onClick={() => setQty(qty + 1)}>+</button>
+                    </div>
+                    <div style={{ marginTop: "16px", padding: "12px 16px", borderRadius: "10px", background: qty >= 640 ? "rgba(57,255,20,0.08)" : "rgba(255,255,255,0.03)", border: `1px solid ${qty >= 640 ? "rgba(57,255,20,0.2)" : "#1a1a1a"}` }}>
+                      <p style={{ fontSize: "14px", color: "#ccc", fontWeight: 600 }}>
+                        Total: <span style={{ color: "#fff", fontSize: "18px", fontWeight: 800 }}>${(qty * (qty >= 640 ? 10 : 12.5)).toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>
+                        <span style={{ fontSize: "13px", color: "#888", marginLeft: "8px" }}>({qty} × ${qty >= 640 ? "10.00" : "12.50"})</span>
+                      </p>
+                      {qty >= 640 ? (
+                        <p style={{ fontSize: "12px", color: "#39ff14", marginTop: "4px", fontWeight: 600 }}>Bulk discount applied — $10.00/8th</p>
+                      ) : (
+                        <p style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>Order 640+ 8ths for $10.00 each (save $2.50/unit)</p>
+                      )}
                     </div>
                   </>
                 ) : null}
@@ -175,7 +193,7 @@ export default function StrainDetail() {
 
           <div style={{ marginTop: "32px", padding: "16px", background: "rgba(57,255,20,0.05)", border: "1px solid rgba(57,255,20,0.1)", borderRadius: "10px" }}>
             <p style={{ fontSize: "13px", color: "#888" }}>
-              <strong style={{ color: "#ccc" }}>Wholesale pricing</strong> — Log in to see pricing. Orders are fulfilled COD (cash on delivery).
+              <strong style={{ color: "#ccc" }}>Wholesale</strong> — Orders are fulfilled COD (cash on delivery). 640+ 8ths qualifies for bulk pricing.
             </p>
           </div>
         </div>

@@ -114,7 +114,7 @@ export default function StrainsPage() {
                 <div className="tb-product-card__content">
                   <div className="tb-product-card__name">{strain.name}</div>
                   <div className="tb-product-card__meta">
-                    <span className="tb-product-card__price">{soldOut ? "Currently unavailable" : "In Stock"}</span>
+                    <span className="tb-product-card__price">{soldOut ? "Currently unavailable" : "$12.50 / 8th"}</span>
                     <span className="tb-product-card__cta">{soldOut ? "Sold Out" : "View Details →"}</span>
                   </div>
                 </div>

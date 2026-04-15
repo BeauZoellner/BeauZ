@@ -2,12 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 const FEATURED_STRAINS = [
-  { name: "Garlic Cookies", type: "Indica", thc: "35%", price: "$2,000", slug: "garlic-cookies", color: "#ff4da6" },
-  { name: "Medusa", type: "Hybrid", thc: "34%", price: "$1,800", slug: "medusa", color: "#39ff14" },
-  { name: "Project Z", type: "Sativa", thc: "33%", price: "$1,900", slug: "project-z", color: "#00e5ff" },
-  { name: "Animal Heat", type: "Hybrid", thc: "32%", price: "$1,800", slug: "animal-heat", color: "#39ff14" },
-  { name: "Tear Gas", type: "Sativa", thc: "32%", price: "$1,750", slug: "tear-gas", color: "#00e5ff" },
-  { name: "Runtz", type: "Hybrid", thc: "31%", price: "$1,850", slug: "runtz", color: "#39ff14" },
+  { name: "Garlic Cookies", type: "Indica", thc: "35%", price: "$12.50", slug: "garlic-cookies", color: "#ff4da6" },
+  { name: "Medusa", type: "Hybrid", thc: "34%", price: "$12.50", slug: "medusa", color: "#39ff14" },
+  { name: "Project Z", type: "Sativa", thc: "33%", price: "$12.50", slug: "project-z", color: "#00e5ff" },
+  { name: "Animal Heat", type: "Hybrid", thc: "32%", price: "$12.50", slug: "animal-heat", color: "#39ff14" },
+  { name: "Tear Gas", type: "Sativa", thc: "32%", price: "$12.50", slug: "tear-gas", color: "#00e5ff" },
+  { name: "Runtz", type: "Hybrid", thc: "31%", price: "$12.50", slug: "runtz", color: "#39ff14" },
 ];
 
 const STATS = [
@@ -120,7 +120,7 @@ export default function Home() {
                   {strain.type}
                 </div>
                 <div className="tb-product-card__meta">
-                  <span className="tb-product-card__price">{strain.price} / lb</span>
+                  <span className="tb-product-card__price">{strain.price} / 8th</span>
                   <span className="tb-product-card__cta">View Details &rarr;</span>
                 </div>
               </div>

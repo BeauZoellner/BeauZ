@@ -38,6 +38,15 @@ export default function Header() {
         ))}
       </nav>
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <a href="tel:9188964444" style={{
+          fontSize: "14px", fontWeight: 700, color: "#39ff14",
+          padding: "8px 14px", borderRadius: "8px",
+          border: "1px solid rgba(57,255,20,0.3)",
+          letterSpacing: "0.5px", transition: "all 0.2s",
+          whiteSpace: "nowrap",
+        }}>
+          918-896-4444
+        </a>
         <Link href="/cart" style={{
           fontSize: "14px", fontWeight: 600, color: "#a0a0a0",
           padding: "8px 12px", transition: "color 0.2s",

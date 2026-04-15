@@ -24,6 +24,7 @@ export default function Header() {
       <nav style={{ display: "flex", alignItems: "center", gap: "32px" }}>
         {[
           { href: "/strains", label: "STRAINS" },
+          { href: "/harvest-schedule", label: "HARVEST" },
           { href: "/#wholesale", label: "WHOLESALE" },
           { href: "/#about", label: "ABOUT" },
           { href: "/#contact", label: "CONTACT" },

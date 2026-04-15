@@ -14,6 +14,10 @@ const STRAIN_IMAGES: Record<string, string> = {
   "tear-gas": "/images/tear-gas.png",
   "rancid-rainbows": "/images/rancid-rainbows.png",
   "wedding-cake": "/images/wedding-cake.png",
+  "animal-heat": "/images/animal-heat.png",
+  "baby-zereal": "/images/baby-zereal.png",
+  "medusa": "/images/medusa.png",
+  "project-z": "/images/project-z.png",
 };
 
 const IN_STOCK = ["lemon-drop", "runtz", "la-rosa", "tamalez", "garlic-cookies", "wedding-cake", "ice-cream-cake"];
@@ -80,14 +84,14 @@ export default function StrainsPage() {
           const soldOut = strain.inventory === 0;
           return (
             <Link href={`/strains/${strain.slug}`} key={strain.slug}>
-              <div className="tb-product-card" style={soldOut ? { opacity: 0.5 } : {}}>
+              <div className="tb-product-card">
                 <div className="tb-product-card__image" style={{ background: "#111" }}>
                   {STRAIN_IMAGES[strain.slug] ? (
                     <Image
                       src={STRAIN_IMAGES[strain.slug]}
                       alt={strain.name}
                       fill
-                      style={{ objectFit: "cover", ...(soldOut ? { filter: "grayscale(80%)" } : {}) }}
+                      style={{ objectFit: "cover" }}
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   ) : (
@@ -99,14 +103,6 @@ export default function StrainsPage() {
                       <span style={{ fontSize: "48px", opacity: 0.15, fontWeight: 900 }}>{strain.name.charAt(0)}</span>
                     </div>
                   )}
-                  {soldOut && (
-                    <div style={{
-                      position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
-                      background: "rgba(0,0,0,0.6)", zIndex: 2,
-                    }}>
-                      <span style={{ fontSize: "18px", fontWeight: 900, color: "#ff4444", letterSpacing: "3px", textTransform: "uppercase" }}>SOLD OUT</span>
-                    </div>
-                  )}
                   <div className="tb-product-card__badge" style={{ color: typeColor(strain.type) }}>
                     {strain.type}
                   </div>
@@ -114,8 +110,8 @@ export default function StrainsPage() {
                 <div className="tb-product-card__content">
                   <div className="tb-product-card__name">{strain.name}</div>
                   <div className="tb-product-card__meta">
-                    <span className="tb-product-card__price">{soldOut ? "Currently unavailable" : "$12.50 / 8th"}</span>
-                    <span className="tb-product-card__cta">{soldOut ? "Sold Out" : "View Details →"}</span>
+                    <span className="tb-product-card__price">{soldOut ? "" : "$12.50 / 8th"}</span>
+                    <span className="tb-product-card__cta" style={soldOut ? { color: "#ff4444", fontWeight: 900, letterSpacing: "2px" } : {}}>{soldOut ? "SOLD OUT" : "View Details →"}</span>
                   </div>
                 </div>
               </div>

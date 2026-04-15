@@ -16,6 +16,10 @@ const STRAIN_IMAGES: Record<string, string> = {
   "tear-gas": "/images/tear-gas.png",
   "rancid-rainbows": "/images/rancid-rainbows.png",
   "wedding-cake": "/images/wedding-cake.png",
+  "animal-heat": "/images/animal-heat.png",
+  "baby-zereal": "/images/baby-zereal.png",
+  "medusa": "/images/medusa.png",
+  "project-z": "/images/project-z.png",
 };
 
 const IN_STOCK = ["lemon-drop", "runtz", "la-rosa", "tamalez", "garlic-cookies", "wedding-cake", "ice-cream-cake"];

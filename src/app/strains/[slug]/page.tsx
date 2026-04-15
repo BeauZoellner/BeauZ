@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { supabase } from "@/lib/supabase";
 
 const STRAIN_IMAGES: Record<string, string> = {
   "apples-n-juice": "/images/apples-n-juice.png",
@@ -52,6 +53,13 @@ export default function StrainDetail() {
   const soldOut = !IN_STOCK.includes(slug);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) setLoggedIn(true);
+    });
+  }, []);
 
   if (!strain) {
     return (
@@ -130,21 +138,38 @@ export default function StrainDetail() {
           ) : (
             <>
               <div style={{ borderTop: "1px solid #1a1a1a", paddingTop: "24px", marginBottom: "24px" }}>
-                <p style={{ fontSize: "13px", color: "#39ff14", marginBottom: "12px", fontWeight: 600 }}>In Stock — 2,000 8ths available</p>
-                <p style={{ fontSize: "13px", color: "#555", marginBottom: "12px", fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase" }}>Quantity (units)</p>
-                <div className="tb-qty">
-                  <button className="tb-qty__btn tb-qty__btn--minus" onClick={() => setQty(Math.max(1, qty - 1))}>−</button>
-                  <span style={{ minWidth: "40px", textAlign: "center", fontSize: "18px", fontWeight: 700 }}>{qty}</span>
-                  <button className="tb-qty__btn tb-qty__btn--plus" onClick={() => setQty(qty + 1)}>+</button>
-                </div>
+                <p style={{ fontSize: "13px", color: "#39ff14", marginBottom: "12px", fontWeight: 600 }}>In Stock</p>
+                {loggedIn ? (
+                  <>
+                    <p style={{ fontSize: "13px", color: "#555", marginBottom: "12px", fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase" }}>Quantity (units)</p>
+                    <div className="tb-qty">
+                      <button className="tb-qty__btn tb-qty__btn--minus" onClick={() => setQty(Math.max(1, qty - 1))}>−</button>
+                      <span style={{ minWidth: "40px", textAlign: "center", fontSize: "18px", fontWeight: 700 }}>{qty}</span>
+                      <button className="tb-qty__btn tb-qty__btn--plus" onClick={() => setQty(qty + 1)}>+</button>
+                    </div>
+                  </>
+                ) : null}
               </div>
 
-              <button onClick={addToCart} className="tb-btn tb-btn--primary tb-btn--full" style={{ marginBottom: "12px" }}>
-                {added ? "✓ Added to Cart!" : "Add to Cart"}
-              </button>
-              <Link href="/cart" className="tb-btn tb-btn--outline tb-btn--full" style={{ textAlign: "center", display: "block" }}>
-                View Cart
-              </Link>
+              {loggedIn ? (
+                <>
+                  <button onClick={addToCart} className="tb-btn tb-btn--primary tb-btn--full" style={{ marginBottom: "12px" }}>
+                    {added ? "✓ Added to Cart!" : "Add to Cart"}
+                  </button>
+                  <Link href="/cart" className="tb-btn tb-btn--outline tb-btn--full" style={{ textAlign: "center", display: "block" }}>
+                    View Cart
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" className="tb-btn tb-btn--primary tb-btn--full" style={{ textAlign: "center", display: "block", marginBottom: "12px" }}>
+                    Log In to Order
+                  </Link>
+                  <Link href="/apply" className="tb-btn tb-btn--outline tb-btn--full" style={{ textAlign: "center", display: "block" }}>
+                    Apply for Wholesale
+                  </Link>
+                </>
+              )}
             </>
           )}
 

@@ -31,28 +31,13 @@ export default function Home() {
         minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
         position: "relative", overflow: "hidden", padding: "120px 24px 80px",
       }}>
-        {/* Background glow */}
-        <div style={{
-          position: "absolute", top: "-200px", left: "50%", transform: "translateX(-50%)",
-          width: "800px", height: "800px", borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(57,255,20,0.08) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }} />
-        <div style={{
-          position: "absolute", top: "30%", right: "-100px",
-          width: "400px", height: "400px", borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(0,229,255,0.05) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }} />
-
         <div style={{ textAlign: "center", maxWidth: "800px", position: "relative", zIndex: 1 }}>
           <Image
             src="/images/terpbunny-logo.png"
             alt="TerpBunny"
             width={400}
             height={150}
-            style={{ height: "120px", width: "auto", objectFit: "contain", margin: "0 auto 32px",
-              filter: "drop-shadow(0 0 40px rgba(57,255,20,0.3))" }}
+            style={{ height: "120px", width: "auto", objectFit: "contain", margin: "0 auto 32px" }}
             priority
           />
           <h1 style={{

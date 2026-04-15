@@ -41,6 +41,21 @@ export default function ApplyPage() {
       status: "approved",
     });
 
+    // Notify admin of new signup (fire-and-forget)
+    fetch("/api/signup-notify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        dispensary: form.dispensary,
+        address: form.address,
+        license: form.license,
+        contact: form.contact,
+        phone: form.phone,
+        email: form.email,
+        message: form.message,
+      }),
+    }).catch(() => {});
+
     setSubmitted(true);
     setSubmitting(false);
   }

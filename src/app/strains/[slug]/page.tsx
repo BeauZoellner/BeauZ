@@ -2,6 +2,19 @@
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+
+const STRAIN_IMAGES: Record<string, string> = {
+  "apples-n-juice": "/images/apples-n-juice.png",
+  "garlic-cookies": "/images/garlic-cookies.png",
+  "la-rosa": "/images/la-rosa.png",
+  "lemon-cherry-gelato": "/images/lemon-cherry-gelato.png",
+  "lemon-drop": "/images/lemon-drop.png",
+  "runtz": "/images/runtz.png",
+  "tamalez": "/images/tamalez.png",
+  "tear-gas": "/images/tear-gas.png",
+  "rancid-rainbows": "/images/rancid-rainbows.png",
+};
 
 const STRAINS: Record<string, { name: string; type: string; thc: string; desc: string }> = {
   "animal-heat": { name: "Animal Heat", type: "Hybrid", thc: "32%", desc: "A powerful hybrid with an intense terpene profile. Earthy, pungent, and heavy-hitting." },
@@ -63,17 +76,30 @@ export default function StrainDetail() {
       <Link href="/strains" style={{ fontSize: "14px", color: "#555", display: "inline-block", marginBottom: "32px" }}>← Back to all strains</Link>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "48px", alignItems: "start" }}>
-        {/* Image placeholder */}
+        {/* Strain image */}
         <div style={{
           aspectRatio: "1", borderRadius: "16px", background: "#111",
           border: "1px solid #1a1a1a", display: "flex", alignItems: "center", justifyContent: "center",
           position: "relative", overflow: "hidden",
         }}>
-          <div style={{
-            position: "absolute", inset: 0,
-            background: `radial-gradient(circle at 50% 60%, ${typeColor(strain.type)}20, transparent 70%)`,
-          }} />
-          <span style={{ fontSize: "80px", opacity: 0.1, fontWeight: 900, position: "relative" }}>{strain.name.charAt(0)}</span>
+          {STRAIN_IMAGES[slug] ? (
+            <Image
+              src={STRAIN_IMAGES[slug]}
+              alt={strain.name}
+              fill
+              style={{ objectFit: "cover" }}
+              sizes="450px"
+              priority
+            />
+          ) : (
+            <>
+              <div style={{
+                position: "absolute", inset: 0,
+                background: `radial-gradient(circle at 50% 60%, ${typeColor(strain.type)}20, transparent 70%)`,
+              }} />
+              <span style={{ fontSize: "80px", opacity: 0.1, fontWeight: 900, position: "relative" }}>{strain.name.charAt(0)}</span>
+            </>
+          )}
         </div>
 
         {/* Details */}

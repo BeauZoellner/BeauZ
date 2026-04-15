@@ -1,6 +1,19 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+
+const STRAIN_IMAGES: Record<string, string> = {
+  "apples-n-juice": "/images/apples-n-juice.png",
+  "garlic-cookies": "/images/garlic-cookies.png",
+  "la-rosa": "/images/la-rosa.png",
+  "lemon-cherry-gelato": "/images/lemon-cherry-gelato.png",
+  "lemon-drop": "/images/lemon-drop.png",
+  "runtz": "/images/runtz.png",
+  "tamalez": "/images/tamalez.png",
+  "tear-gas": "/images/tear-gas.png",
+  "rancid-rainbows": "/images/rancid-rainbows.png",
+};
 
 const ALL_STRAINS = [
   { name: "Animal Heat", type: "Hybrid", thc: "32%", slug: "animal-heat" },
@@ -64,13 +77,23 @@ export default function StrainsPage() {
           <Link href={`/strains/${strain.slug}`} key={strain.slug}>
             <div className="tb-product-card">
               <div className="tb-product-card__image" style={{ background: "#111" }}>
-                <div style={{
-                  position: "absolute", inset: 0,
-                  background: `radial-gradient(circle at 50% 60%, ${typeColor(strain.type)}15, transparent 70%)`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                }}>
-                  <span style={{ fontSize: "48px", opacity: 0.15, fontWeight: 900 }}>{strain.name.charAt(0)}</span>
-                </div>
+                {STRAIN_IMAGES[strain.slug] ? (
+                  <Image
+                    src={STRAIN_IMAGES[strain.slug]}
+                    alt={strain.name}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                ) : (
+                  <div style={{
+                    position: "absolute", inset: 0,
+                    background: `radial-gradient(circle at 50% 60%, ${typeColor(strain.type)}15, transparent 70%)`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <span style={{ fontSize: "48px", opacity: 0.15, fontWeight: 900 }}>{strain.name.charAt(0)}</span>
+                  </div>
+                )}
                 <div className="tb-product-card__badge" style={{ color: typeColor(strain.type) }}>
                   {strain.type}
                 </div>

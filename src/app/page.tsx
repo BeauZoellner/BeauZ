@@ -258,6 +258,10 @@ export default function Home() {
             <p style={{ fontSize: "13px", color: "#444", marginTop: "16px" }}>
               We&apos;ll review your application and get back within 24 hours.
             </p>
+            <div style={{ marginTop: "24px", display: "flex", justifyContent: "center", gap: "32px" }}>
+              <a href="tel:918-864-4444" style={{ fontSize: "14px", color: "#888" }}>📞 (918) 864-4444</a>
+              <a href="mailto:admin@terpbunny.com" style={{ fontSize: "14px", color: "#39ff14" }}>✉️ admin@terpbunny.com</a>
+            </div>
           </div>
         </div>
       </section>

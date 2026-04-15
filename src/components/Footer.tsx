@@ -18,6 +18,10 @@ export default function Footer() {
           <p style={{ fontSize: "14px", color: "#555", lineHeight: 1.7, maxWidth: "280px" }}>
             Premium wholesale cannabis for licensed Oklahoma dispensaries. Hand-selected strains, craft-grown flower.
           </p>
+          <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "8px" }}>
+            <a href="tel:918-864-4444" style={{ fontSize: "14px", color: "#888" }}>📞 (918) 864-4444</a>
+            <a href="mailto:admin@terpbunny.com" style={{ fontSize: "14px", color: "#888" }}>✉️ admin@terpbunny.com</a>
+          </div>
         </div>
         <div>
           <h4 style={{ fontSize: "13px", fontWeight: 700, color: "#666", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "20px" }}>Shop</h4>

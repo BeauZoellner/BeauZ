@@ -18,6 +18,10 @@ const STRAIN_IMAGES: Record<string, string> = {
   "baby-zereal": "/images/baby-zereal.png",
   "medusa": "/images/medusa.png",
   "project-z": "/images/project-z.png",
+  "sherbert-pie": "/images/sherbert-pie.png",
+  "sour-cream": "/images/sour-cream.jpeg",
+  "georgia-heat": "/images/georgia-heat.png",
+  "bubble-gum-runtz": "/images/bubble-gum-runtz.png",
 };
 
 const IN_STOCK = ["lemon-drop", "runtz", "la-rosa", "tamalez", "garlic-cookies", "wedding-cake", "ice-cream-cake"];
@@ -40,6 +44,11 @@ const ALL_STRAINS = [
   { name: "Tear Gas", type: "Sativa", thc: "32%", slug: "tear-gas", inventory: 0 },
   { name: "Bacio Gelato", type: "Hybrid", thc: "30%", slug: "bacio-gelato", inventory: 0 },
   { name: "Jealousy", type: "Hybrid", thc: "31%", slug: "jealousy", inventory: 0 },
+  { name: "Rancid Rainbows", type: "Hybrid", thc: "30%", slug: "rancid-rainbows", inventory: 0 },
+  { name: "Sherbert Pie", type: "Indica", thc: "28%", slug: "sherbert-pie", inventory: 0 },
+  { name: "Sour Cream", type: "Hybrid", thc: "26%", slug: "sour-cream", inventory: 0 },
+  { name: "Georgia Heat", type: "Sativa", thc: "30%", slug: "georgia-heat", inventory: 0 },
+  { name: "Bubble Gum Runtz", type: "Hybrid", thc: "31%", slug: "bubble-gum-runtz", inventory: 0 },
 ];
 
 function typeColor(type: string) {

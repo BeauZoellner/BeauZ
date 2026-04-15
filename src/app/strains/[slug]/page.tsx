@@ -20,6 +20,10 @@ const STRAIN_IMAGES: Record<string, string> = {
   "baby-zereal": "/images/baby-zereal.png",
   "medusa": "/images/medusa.png",
   "project-z": "/images/project-z.png",
+  "sherbert-pie": "/images/sherbert-pie.png",
+  "sour-cream": "/images/sour-cream.jpeg",
+  "georgia-heat": "/images/georgia-heat.png",
+  "bubble-gum-runtz": "/images/bubble-gum-runtz.png",
 };
 
 const IN_STOCK = ["lemon-drop", "runtz", "la-rosa", "tamalez", "garlic-cookies", "wedding-cake", "ice-cream-cake"];
@@ -42,6 +46,11 @@ const STRAINS: Record<string, { name: string; type: string; thc: string; desc: s
   "tear-gas": { name: "Tear Gas", type: "Sativa", thc: "32%", desc: "Pungent, gassy, and potent. An unforgettable sativa experience." },
   "bacio-gelato": { name: "Bacio Gelato", type: "Hybrid", thc: "30%", desc: "Creamy gelato flavor with balanced effects. A crowd-pleaser every time." },
   "jealousy": { name: "Jealousy", type: "Hybrid", thc: "31%", desc: "Funky, gassy terps with a smooth smoke. Hot genetics that customers ask for by name." },
+  "rancid-rainbows": { name: "Rancid Rainbows", type: "Hybrid", thc: "30%", desc: "Funky and colorful. Rotten-sweet terpenes with psychedelic bag appeal." },
+  "sherbert-pie": { name: "Sherbert Pie", type: "Indica", thc: "28%", desc: "Creamy sherbet meets warm pie crust. Smooth, dessert-forward indica." },
+  "sour-cream": { name: "Sour Cream", type: "Hybrid", thc: "26%", desc: "Smooth, creamy, and subtly tangy. A sativa-leaning hybrid with classic flavor." },
+  "georgia-heat": { name: "Georgia Heat", type: "Sativa", thc: "30%", desc: "Warm, spicy, peach-forward terps. A sativa that brings the heat." },
+  "bubble-gum-runtz": { name: "Bubble Gum Runtz", type: "Hybrid", thc: "31%", desc: "Candy-sweet bubblegum crossed with Runtz genetics. Sweet, chewy, and loud." },
 };
 
 function typeColor(type: string) {

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 
 export default function ApplyPage() {
-  const [form, setForm] = useState({ dispensary: "", license: "", contact: "", phone: "", email: "", password: "", message: "" });
+  const [form, setForm] = useState({ dispensary: "", address: "", license: "", contact: "", phone: "", email: "", password: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -21,7 +21,7 @@ export default function ApplyPage() {
     const { error: authError } = await supabase.auth.signUp({
       email: form.email,
       password: form.password,
-      options: { data: { dispensary: form.dispensary, contact: form.contact } },
+      options: { data: { dispensary: form.dispensary, address: form.address, contact: form.contact, phone: form.phone } },
     });
     if (authError) {
       setError(authError.message);
@@ -33,6 +33,7 @@ export default function ApplyPage() {
     await supabase.from("applications").insert({
       email: form.email,
       dispensary_name: form.dispensary,
+      address: form.address,
       license_number: form.license,
       contact_name: form.contact,
       phone: form.phone,
@@ -89,6 +90,10 @@ export default function ApplyPage() {
             <label style={{ fontSize: "13px", fontWeight: 600, color: "#888", marginBottom: "6px", display: "block" }}>License #</label>
             <input className="tb-input" value={form.license} onChange={(e) => update("license", e.target.value)} required />
           </div>
+        </div>
+        <div>
+          <label style={{ fontSize: "13px", fontWeight: 600, color: "#888", marginBottom: "6px", display: "block" }}>Store Address</label>
+          <input className="tb-input" placeholder="123 Main St, Oklahoma City, OK 73101" value={form.address} onChange={(e) => update("address", e.target.value)} required />
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
           <div>

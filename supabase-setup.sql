@@ -4,6 +4,10 @@
 create table orders (
   id uuid default gen_random_uuid() primary key,
   email text not null,
+  dispensary_name text default '',
+  store_address text default '',
+  contact_name text default '',
+  phone text default '',
   items jsonb not null,
   notes text default '',
   status text default 'pending',

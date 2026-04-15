@@ -15,13 +15,19 @@ export default function CartPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [notes, setNotes] = useState("");
-  const [user, setUser] = useState<{ email: string } | null>(null);
+  const [user, setUser] = useState<{ email: string; dispensary?: string; address?: string; contact?: string; phone?: string } | null>(null);
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("tb-cart") || "[]");
     setCart(stored);
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user) setUser({ email: data.user.email || "" });
+      if (data.user) setUser({
+        email: data.user.email || "",
+        dispensary: data.user.user_metadata?.dispensary,
+        address: data.user.user_metadata?.address,
+        contact: data.user.user_metadata?.contact,
+        phone: data.user.user_metadata?.phone,
+      });
     });
   }, []);
 
@@ -47,6 +53,10 @@ export default function CartPage() {
     setSubmitting(true);
     const { error } = await supabase.from("orders").insert({
       email: user.email,
+      dispensary_name: user.dispensary || "",
+      store_address: user.address || "",
+      contact_name: user.contact || "",
+      phone: user.phone || "",
       items: cart,
       notes,
       status: "pending",

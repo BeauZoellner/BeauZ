@@ -61,6 +61,14 @@ export default function CartPage() {
     localStorage.setItem("tb-cart", JSON.stringify(updated));
   }
 
+  function setQtyDirect(slug: string, newQty: number) {
+    const updated = cart.map((item) =>
+      item.slug === slug ? { ...item, qty: Math.max(1, newQty) } : item
+    );
+    setCart(updated);
+    localStorage.setItem("tb-cart", JSON.stringify(updated));
+  }
+
   function removeItem(slug: string) {
     const updated = cart.filter((item) => item.slug !== slug);
     setCart(updated);
@@ -165,7 +173,21 @@ export default function CartPage() {
               </div>
               <div className="tb-qty">
                 <button className="tb-qty__btn tb-qty__btn--minus" onClick={() => updateQty(item.slug, -1)}>−</button>
-                <span style={{ minWidth: "30px", textAlign: "center", fontSize: "14px", fontWeight: 700 }}>{item.qty}</span>
+                <input
+                  type="number"
+                  min={1}
+                  value={item.qty}
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value, 10);
+                    if (!isNaN(val) && val >= 1) setQtyDirect(item.slug, val);
+                  }}
+                  style={{
+                    width: "60px", textAlign: "center", fontSize: "14px", fontWeight: 700,
+                    background: "transparent", border: "1px solid #333", borderRadius: "6px",
+                    color: "#fff", padding: "4px 6px", outline: "none",
+                    MozAppearance: "textfield",
+                  }}
+                />
                 <button className="tb-qty__btn tb-qty__btn--plus" onClick={() => updateQty(item.slug, 1)}>+</button>
               </div>
               <button onClick={() => removeItem(item.slug)} style={{ color: "#555", fontSize: "18px", padding: "8px" }}>✕</button>

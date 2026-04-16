@@ -164,8 +164,74 @@ export default function StrainDetail() {
                     <p style={{ fontSize: "13px", color: "#555", marginBottom: "12px", fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase" }}>Quantity (8ths)</p>
                     <div className="tb-qty">
                       <button className="tb-qty__btn tb-qty__btn--minus" onClick={() => setQty(Math.max(1, qty - 1))}>−</button>
-                      <span style={{ minWidth: "40px", textAlign: "center", fontSize: "18px", fontWeight: 700 }}>{qty}</span>
+                      <input
+                        type="number"
+                        min={1}
+                        value={qty}
+                        onChange={(e) => {
+                          const val = parseInt(e.target.value, 10);
+                          if (!isNaN(val) && val >= 1) setQty(val);
+                          else if (e.target.value === "") setQty(1);
+                        }}
+                        style={{
+                          width: "70px", textAlign: "center", fontSize: "18px", fontWeight: 700,
+                          background: "transparent", border: "1px solid #333", borderRadius: "6px",
+                          color: "#fff", padding: "4px 8px", outline: "none",
+                          MozAppearance: "textfield",
+                        }}
+                      />
                       <button className="tb-qty__btn tb-qty__btn--plus" onClick={() => setQty(qty + 1)}>+</button>
+                    </div>
+                    {/* Quick-add buttons */}
+                    <div style={{ display: "flex", gap: "8px", marginTop: "12px", flexWrap: "wrap" }}>
+                      <button
+                        onClick={() => setQty(32)}
+                        style={{
+                          padding: "8px 16px", borderRadius: "8px", fontSize: "13px", fontWeight: 700,
+                          background: qty === 32 ? "rgba(57,255,20,0.15)" : "rgba(255,255,255,0.05)",
+                          border: qty === 32 ? "1px solid rgba(57,255,20,0.4)" : "1px solid #333",
+                          color: qty === 32 ? "#39ff14" : "#aaa",
+                          cursor: "pointer", transition: "all 0.2s",
+                        }}
+                      >
+                        QP (32)
+                      </button>
+                      <button
+                        onClick={() => setQty(64)}
+                        style={{
+                          padding: "8px 16px", borderRadius: "8px", fontSize: "13px", fontWeight: 700,
+                          background: qty === 64 ? "rgba(57,255,20,0.15)" : "rgba(255,255,255,0.05)",
+                          border: qty === 64 ? "1px solid rgba(57,255,20,0.4)" : "1px solid #333",
+                          color: qty === 64 ? "#39ff14" : "#aaa",
+                          cursor: "pointer", transition: "all 0.2s",
+                        }}
+                      >
+                        HP (64)
+                      </button>
+                      <button
+                        onClick={() => setQty(128)}
+                        style={{
+                          padding: "8px 16px", borderRadius: "8px", fontSize: "13px", fontWeight: 700,
+                          background: qty === 128 ? "rgba(57,255,20,0.15)" : "rgba(255,255,255,0.05)",
+                          border: qty === 128 ? "1px solid rgba(57,255,20,0.4)" : "1px solid #333",
+                          color: qty === 128 ? "#39ff14" : "#aaa",
+                          cursor: "pointer", transition: "all 0.2s",
+                        }}
+                      >
+                        1 LB (128)
+                      </button>
+                      <button
+                        onClick={() => setQty(640)}
+                        style={{
+                          padding: "8px 16px", borderRadius: "8px", fontSize: "13px", fontWeight: 700,
+                          background: qty === 640 ? "rgba(57,255,20,0.15)" : "rgba(255,255,255,0.05)",
+                          border: qty === 640 ? "1px solid rgba(57,255,20,0.4)" : "1px solid #333",
+                          color: qty === 640 ? "#39ff14" : "#aaa",
+                          cursor: "pointer", transition: "all 0.2s",
+                        }}
+                      >
+                        5 LB (640)
+                      </button>
                     </div>
                     <div style={{ marginTop: "16px", padding: "12px 16px", borderRadius: "10px", background: qty >= 640 ? "rgba(57,255,20,0.08)" : "rgba(255,255,255,0.03)", border: `1px solid ${qty >= 640 ? "rgba(57,255,20,0.2)" : "#1a1a1a"}` }}>
                       <p style={{ fontSize: "14px", color: "#ccc", fontWeight: 600 }}>

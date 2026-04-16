@@ -22,6 +22,8 @@ const STRAIN_IMAGES: Record<string, string> = {
   "sour-cream": "/images/sour-cream.jpeg",
   "georgia-heat": "/images/georgia-heat.png",
   "bubble-gum-runtz": "/images/bubble-gum-runtz.png",
+  "ice-cream-cake": "/images/ice-cream-cake.png",
+  "skywalker-og": "/images/skywalker-og.png",
 };
 
 const IN_STOCK = ["lemon-drop", "runtz", "la-rosa", "tamalez", "garlic-cookies", "wedding-cake", "ice-cream-cake"];

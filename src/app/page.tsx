@@ -1,17 +1,38 @@
 import Image from "next/image";
 import Link from "next/link";
 
+const STRAIN_IMAGES: Record<string, string> = {
+  "apples-n-juice": "/images/apples-n-juice.png",
+  "garlic-cookies": "/images/garlic-cookies.png",
+  "la-rosa": "/images/la-rosa.png",
+  "lemon-cherry-gelato": "/images/lemon-cherry-gelato.png",
+  "lemon-drop": "/images/lemon-drop.png",
+  "runtz": "/images/runtz.png",
+  "tamalez": "/images/tamalez.png",
+  "tear-gas": "/images/tear-gas.png",
+  "rancid-rainbows": "/images/rancid-rainbows.png",
+  "wedding-cake": "/images/wedding-cake.png",
+  "animal-heat": "/images/animal-heat.png",
+  "baby-zereal": "/images/baby-zereal.png",
+  "medusa": "/images/medusa.png",
+  "project-z": "/images/project-z.png",
+  "sherbert-pie": "/images/sherbert-pie.png",
+  "sour-cream": "/images/sour-cream.jpeg",
+  "georgia-heat": "/images/georgia-heat.png",
+  "bubble-gum-runtz": "/images/bubble-gum-runtz.png",
+};
+
 const FEATURED_STRAINS = [
   { name: "Garlic Cookies", type: "Indica", thc: "35%", price: "$12.50", slug: "garlic-cookies", color: "#ff4da6" },
-  { name: "Medusa", type: "Hybrid", thc: "34%", price: "$12.50", slug: "medusa", color: "#39ff14" },
-  { name: "Project Z", type: "Sativa", thc: "33%", price: "$12.50", slug: "project-z", color: "#00e5ff" },
-  { name: "Animal Heat", type: "Hybrid", thc: "32%", price: "$12.50", slug: "animal-heat", color: "#39ff14" },
-  { name: "Tear Gas", type: "Sativa", thc: "32%", price: "$12.50", slug: "tear-gas", color: "#00e5ff" },
+  { name: "Medusa", type: "Indica", thc: "34%", price: "$12.50", slug: "medusa", color: "#ff4da6" },
+  { name: "Wedding Cake", type: "Hybrid", thc: "32%", price: "$12.50", slug: "wedding-cake", color: "#39ff14" },
+  { name: "La Rosa", type: "Hybrid", thc: "28%", price: "$12.50", slug: "la-rosa", color: "#39ff14" },
+  { name: "Lemon Cherry Gelato", type: "Hybrid", thc: "30%", price: "$12.50", slug: "lemon-cherry-gelato", color: "#39ff14" },
   { name: "Runtz", type: "Hybrid", thc: "31%", price: "$12.50", slug: "runtz", color: "#39ff14" },
 ];
 
 const STATS = [
-  { value: "17+", label: "Premium Strains" },
+  { value: "22+", label: "Premium Strains" },
   { value: "35%", label: "Max THC" },
   { value: "100%", label: "Lab Tested" },
   { value: "OK", label: "Licensed" },
@@ -98,39 +119,50 @@ export default function Home() {
 
         <div className="tb-product-grid">
           {FEATURED_STRAINS.map((strain) => (
-            <div key={strain.slug} className="tb-product-card">
-              <div className="tb-product-card__image" style={{ background: "#111" }}>
-                {/* Placeholder gradient for product images */}
-                <div style={{
-                  position: "absolute", inset: 0,
-                  background: `radial-gradient(circle at 50% 60%, ${strain.color}15, transparent 70%)`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                }}>
-                  <span style={{ fontSize: "48px", opacity: 0.15, fontWeight: 900 }}>
-                    {strain.name.charAt(0)}
-                  </span>
+            <Link key={strain.slug} href={`/strains/${strain.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="tb-product-card">
+                <div className="tb-product-card__image" style={{ background: "#111", position: "relative", overflow: "hidden" }}>
+                  {STRAIN_IMAGES[strain.slug] ? (
+                    <Image
+                      src={STRAIN_IMAGES[strain.slug]}
+                      alt={strain.name}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  ) : (
+                    <div style={{
+                      position: "absolute", inset: 0,
+                      background: `radial-gradient(circle at 50% 60%, ${strain.color}15, transparent 70%)`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                    }}>
+                      <span style={{ fontSize: "48px", opacity: 0.15, fontWeight: 900 }}>
+                        {strain.name.charAt(0)}
+                      </span>
+                    </div>
+                  )}
+                  <div className="tb-product-card__badge" style={{ color: typeColor(strain.type) }}>
+                    {strain.thc} THC
+                  </div>
                 </div>
-                <div className="tb-product-card__badge" style={{ color: typeColor(strain.type) }}>
-                  {strain.thc} THC
+                <div className="tb-product-card__content">
+                  <div className="tb-product-card__name">{strain.name}</div>
+                  <div style={{ fontSize: "13px", color: typeColor(strain.type), fontWeight: 600, marginTop: "6px" }}>
+                    {strain.type}
+                  </div>
+                  <div className="tb-product-card__meta">
+                    <span className="tb-product-card__price">{strain.price} / 8th</span>
+                    <span className="tb-product-card__cta">View Details &rarr;</span>
+                  </div>
                 </div>
               </div>
-              <div className="tb-product-card__content">
-                <div className="tb-product-card__name">{strain.name}</div>
-                <div style={{ fontSize: "13px", color: typeColor(strain.type), fontWeight: 600, marginTop: "6px" }}>
-                  {strain.type}
-                </div>
-                <div className="tb-product-card__meta">
-                  <span className="tb-product-card__price">{strain.price} / 8th</span>
-                  <span className="tb-product-card__cta">View Details &rarr;</span>
-                </div>
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
 
         <div style={{ textAlign: "center", marginTop: "56px" }}>
           <Link href="/strains" className="tb-btn tb-btn--outline">
-            View All 17 Strains &rarr;
+            View All 22 Strains &rarr;
           </Link>
         </div>
       </section>

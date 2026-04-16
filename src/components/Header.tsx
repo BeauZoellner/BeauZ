@@ -34,9 +34,9 @@ export default function Header() {
         <Image
           src="/images/terpbunny-logo.png"
           alt="TerpBunny"
-          width={220}
-          height={80}
-          style={{ height: "65px", width: "auto", objectFit: "contain" }}
+          width={180}
+          height={180}
+          style={{ height: "70px", width: "auto", objectFit: "contain" }}
           priority
         />
       </Link>

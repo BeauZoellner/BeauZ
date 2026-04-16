@@ -36,8 +36,8 @@ export default function Home() {
             src="/images/terpbunny-logo.png"
             alt="TerpBunny"
             width={400}
-            height={150}
-            style={{ height: "180px", width: "auto", objectFit: "contain", margin: "0 auto 32px" }}
+            height={400}
+            style={{ height: "240px", width: "auto", objectFit: "contain", margin: "0 auto 32px" }}
             priority
           />
           <h1 style={{

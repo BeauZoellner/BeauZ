@@ -1,7 +1,29 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { supabase } from "@/lib/supabase";
+
+const STRAIN_IMAGES: Record<string, string> = {
+  "apples-n-juice": "/images/apples-n-juice.png",
+  "garlic-cookies": "/images/garlic-cookies.png",
+  "la-rosa": "/images/la-rosa.png",
+  "lemon-cherry-gelato": "/images/lemon-cherry-gelato.png",
+  "lemon-drop": "/images/lemon-drop.png",
+  "runtz": "/images/runtz.png",
+  "tamalez": "/images/tamalez.png",
+  "tear-gas": "/images/tear-gas.png",
+  "rancid-rainbows": "/images/rancid-rainbows.png",
+  "wedding-cake": "/images/wedding-cake.png",
+  "animal-heat": "/images/animal-heat.png",
+  "baby-zereal": "/images/baby-zereal.png",
+  "medusa": "/images/medusa.png",
+  "project-z": "/images/project-z.png",
+  "sherbert-pie": "/images/sherbert-pie.png",
+  "sour-cream": "/images/sour-cream.jpeg",
+  "georgia-heat": "/images/georgia-heat.png",
+  "bubble-gum-runtz": "/images/bubble-gum-runtz.png",
+};
 
 interface CartItem {
   slug: string;
@@ -123,7 +145,20 @@ export default function CartPage() {
                 width: "64px", height: "64px", borderRadius: "8px", background: "#1a1a1a",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 fontSize: "24px", fontWeight: 900, color: "#333",
-              }}>{item.name.charAt(0)}</div>
+                position: "relative", overflow: "hidden", flexShrink: 0,
+              }}>
+                {STRAIN_IMAGES[item.slug] ? (
+                  <Image
+                    src={STRAIN_IMAGES[item.slug]}
+                    alt={item.name}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="64px"
+                  />
+                ) : (
+                  item.name.charAt(0)
+                )}
+              </div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontWeight: 700, fontSize: "16px" }}>{item.name}</div>
                 <div style={{ fontSize: "13px", color: "#666" }}>{item.type}</div>

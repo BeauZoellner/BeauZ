@@ -1,8 +1,27 @@
 "use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function Header() {
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    function readCart() {
+      try {
+        const cart = JSON.parse(localStorage.getItem("tb-cart") || "[]");
+        setCartCount(cart.length);
+      } catch { setCartCount(0); }
+    }
+    readCart();
+    window.addEventListener("cart-updated", readCart);
+    window.addEventListener("storage", readCart);
+    return () => {
+      window.removeEventListener("cart-updated", readCart);
+      window.removeEventListener("storage", readCart);
+    };
+  }, []);
+
   return (
     <header style={{
       position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000,
@@ -49,10 +68,24 @@ export default function Header() {
           918-896-4444
         </a>
         <Link href="/cart" style={{
-          fontSize: "14px", fontWeight: 600, color: "#a0a0a0",
-          padding: "8px 12px", transition: "color 0.2s",
+          position: "relative", fontSize: "14px", fontWeight: 600,
+          color: cartCount > 0 ? "#39ff14" : "#a0a0a0",
+          padding: "8px 12px", transition: "all 0.3s ease",
+          filter: cartCount > 0 ? "drop-shadow(0 0 6px rgba(57,255,20,0.5))" : "none",
         }}>
           🛒
+          {cartCount > 0 && (
+            <span style={{
+              position: "absolute", top: "2px", right: "2px",
+              background: "#39ff14", color: "#000",
+              fontSize: "10px", fontWeight: 900,
+              width: "18px", height: "18px", borderRadius: "50%",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              lineHeight: 1, boxShadow: "0 0 8px rgba(57,255,20,0.6)",
+            }}>
+              {cartCount}
+            </span>
+          )}
         </Link>
         <Link href="/login" style={{
           fontSize: "14px", fontWeight: 600, color: "#fff",

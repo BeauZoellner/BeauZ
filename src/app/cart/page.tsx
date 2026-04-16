@@ -59,6 +59,7 @@ export default function CartPage() {
     );
     setCart(updated);
     localStorage.setItem("tb-cart", JSON.stringify(updated));
+    window.dispatchEvent(new Event("cart-updated"));
   }
 
   function setQtyDirect(slug: string, newQty: number) {
@@ -67,12 +68,14 @@ export default function CartPage() {
     );
     setCart(updated);
     localStorage.setItem("tb-cart", JSON.stringify(updated));
+    window.dispatchEvent(new Event("cart-updated"));
   }
 
   function removeItem(slug: string) {
     const updated = cart.filter((item) => item.slug !== slug);
     setCart(updated);
     localStorage.setItem("tb-cart", JSON.stringify(updated));
+    window.dispatchEvent(new Event("cart-updated"));
   }
 
   async function submitOrder() {
@@ -107,6 +110,7 @@ export default function CartPage() {
       }).catch(() => {});
       localStorage.removeItem("tb-cart");
       setCart([]);
+      window.dispatchEvent(new Event("cart-updated"));
       setSubmitted(true);
     }
     setSubmitting(false);

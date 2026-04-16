@@ -99,6 +99,7 @@ export default function StrainDetail() {
       cart.push({ slug, name: strain.name, type: strain.type, qty });
     }
     localStorage.setItem("tb-cart", JSON.stringify(cart));
+    window.dispatchEvent(new Event("cart-updated"));
     // Refresh cart qty for mix & match calculation
     const otherQty = cart
       .filter((item: { slug: string }) => item.slug !== slug)

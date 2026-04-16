@@ -67,12 +67,19 @@ export default function StrainDetail() {
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [cartQty, setCartQty] = useState(0);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
       if (data.user) setLoggedIn(true);
     });
-  }, []);
+    // Read existing cart to calculate mix & match total
+    const cart = JSON.parse(localStorage.getItem("tb-cart") || "[]");
+    const otherQty = cart
+      .filter((item: { slug: string }) => item.slug !== slug)
+      .reduce((sum: number, item: { qty: number }) => sum + item.qty, 0);
+    setCartQty(otherQty);
+  }, [slug]);
 
   if (!strain) {
     return (
@@ -92,6 +99,11 @@ export default function StrainDetail() {
       cart.push({ slug, name: strain.name, type: strain.type, qty });
     }
     localStorage.setItem("tb-cart", JSON.stringify(cart));
+    // Refresh cart qty for mix & match calculation
+    const otherQty = cart
+      .filter((item: { slug: string }) => item.slug !== slug)
+      .reduce((sum: number, item: { qty: number }) => sum + item.qty, 0);
+    setCartQty(otherQty);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   }
@@ -141,7 +153,7 @@ export default function StrainDetail() {
             <span style={{ fontSize: "14px", color: "#888" }}> / 8th</span>
             <span style={{ fontSize: "13px", color: "#555", margin: "0 8px" }}>|</span>
             <span style={{ fontSize: "16px", fontWeight: 700, color: "#39ff14" }}>$10.00</span>
-            <span style={{ fontSize: "13px", color: "#888" }}> / 8th at 640+</span>
+            <span style={{ fontSize: "13px", color: "#888" }}> / 8th at 640+ (mix &amp; match)</span>
           </div>
           <p style={{ fontSize: "15px", color: "#888", lineHeight: 1.7, marginBottom: "32px" }}>{strain.desc}</p>
 
@@ -233,17 +245,40 @@ export default function StrainDetail() {
                         5 LB (640)
                       </button>
                     </div>
-                    <div style={{ marginTop: "16px", padding: "12px 16px", borderRadius: "10px", background: qty >= 640 ? "rgba(57,255,20,0.08)" : "rgba(255,255,255,0.03)", border: `1px solid ${qty >= 640 ? "rgba(57,255,20,0.2)" : "#1a1a1a"}` }}>
-                      <p style={{ fontSize: "14px", color: "#ccc", fontWeight: 600 }}>
-                        Total: <span style={{ color: "#fff", fontSize: "18px", fontWeight: 800 }}>${(qty * (qty >= 640 ? 10 : 12.5)).toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>
-                        <span style={{ fontSize: "13px", color: "#888", marginLeft: "8px" }}>({qty} × ${qty >= 640 ? "10.00" : "12.50"})</span>
-                      </p>
-                      {qty >= 640 ? (
-                        <p style={{ fontSize: "12px", color: "#39ff14", marginTop: "4px", fontWeight: 600 }}>Bulk discount applied — $10.00/8th</p>
-                      ) : (
-                        <p style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>Order 640+ 8ths for $10.00 each (save $2.50/unit)</p>
-                      )}
-                    </div>
+                    {(() => {
+                      const combinedTotal = cartQty + qty;
+                      const rate = combinedTotal >= 640 ? 10 : 12.5;
+                      const bulkUnlocked = combinedTotal >= 640;
+                      const remaining = 640 - combinedTotal;
+                      return (
+                        <div style={{ marginTop: "16px", padding: "12px 16px", borderRadius: "10px", background: bulkUnlocked ? "rgba(57,255,20,0.08)" : "rgba(255,255,255,0.03)", border: `1px solid ${bulkUnlocked ? "rgba(57,255,20,0.2)" : "#1a1a1a"}` }}>
+                          <p style={{ fontSize: "14px", color: "#ccc", fontWeight: 600 }}>
+                            Total: <span style={{ color: "#fff", fontSize: "18px", fontWeight: 800 }}>${(qty * rate).toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>
+                            <span style={{ fontSize: "13px", color: "#888", marginLeft: "8px" }}>({qty} × ${rate.toFixed(2)})</span>
+                          </p>
+                          {bulkUnlocked ? (
+                            <p style={{ fontSize: "12px", color: "#39ff14", marginTop: "4px", fontWeight: 600 }}>
+                              Bulk discount applied — $10.00/8th across your order
+                              {cartQty > 0 && <span style={{ color: "#888", fontWeight: 400 }}> ({cartQty} already in cart + {qty} = {combinedTotal} total)</span>}
+                            </p>
+                          ) : (
+                            <>
+                              <p style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>
+                                Mix &amp; match 640+ 8ths across strains for $10.00 each
+                              </p>
+                              {cartQty > 0 && (
+                                <p style={{ fontSize: "12px", color: "#888", marginTop: "4px" }}>
+                                  Cart: {cartQty} + this: {qty} = <span style={{ color: "#fff", fontWeight: 600 }}>{combinedTotal}</span> total — <span style={{ color: remaining <= 128 ? "#ffd700" : "#555" }}>{remaining} more to unlock bulk pricing</span>
+                                </p>
+                              )}
+                              {cartQty === 0 && remaining <= 128 && (
+                                <p style={{ fontSize: "12px", color: "#ffd700", marginTop: "4px" }}>Only {remaining} more 8ths to unlock $10.00 pricing!</p>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      );
+                    })()}
                   </>
                 ) : null}
               </div>
@@ -272,7 +307,7 @@ export default function StrainDetail() {
 
           <div style={{ marginTop: "32px", padding: "16px", background: "rgba(57,255,20,0.05)", border: "1px solid rgba(57,255,20,0.1)", borderRadius: "10px" }}>
             <p style={{ fontSize: "13px", color: "#888" }}>
-              <strong style={{ color: "#ccc" }}>Wholesale</strong> — Orders are fulfilled COD (cash on delivery). 640+ 8ths qualifies for bulk pricing.
+              <strong style={{ color: "#ccc" }}>Wholesale</strong> — Orders are fulfilled COD (cash on delivery). Mix &amp; match 640+ 8ths across any strains to unlock $10/8th bulk pricing.
             </p>
           </div>
         </div>

@@ -196,6 +196,14 @@ export default function CartPage() {
         </div>
 
         {/* Order summary */}
+        {(() => {
+          const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
+          const bulkUnlocked = totalQty >= 640;
+          const rate = bulkUnlocked ? 10 : 12.5;
+          const orderTotal = totalQty * rate;
+          const remaining = 640 - totalQty;
+          const savings = bulkUnlocked ? totalQty * 2.5 : 0;
+          return (
         <div style={{
           width: "320px", padding: "24px",
           background: "#111", border: "1px solid #1a1a1a",
@@ -204,13 +212,55 @@ export default function CartPage() {
           <h3 style={{ fontSize: "16px", fontWeight: 700, marginBottom: "16px" }}>Order Summary</h3>
           {cart.map((item) => (
             <div key={item.slug} style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", color: "#888", marginBottom: "8px" }}>
-              <span>{item.name}</span>
-              <span>×{item.qty}</span>
+              <span style={{ flex: 1 }}>{item.name}</span>
+              <span style={{ color: "#aaa", marginLeft: "8px" }}>×{item.qty}</span>
+              <span style={{ minWidth: "70px", textAlign: "right", color: "#ccc" }}>${(item.qty * rate).toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>
             </div>
           ))}
+
           <div style={{ borderTop: "1px solid #1a1a1a", marginTop: "16px", paddingTop: "16px" }}>
-            <p style={{ fontSize: "13px", color: "#555", marginBottom: "8px" }}>Total items: {cart.reduce((sum, i) => sum + i.qty, 0)}</p>
-            <p style={{ fontSize: "12px", color: "#39ff14" }}>Pricing confirmed after review. COD payment.</p>
+            {/* Quantity progress bar toward 640 */}
+            <div style={{ marginBottom: "12px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "6px" }}>
+                <span style={{ color: "#888" }}>Total 8ths: <span style={{ color: "#fff", fontWeight: 700 }}>{totalQty}</span></span>
+                <span style={{ color: bulkUnlocked ? "#39ff14" : "#555" }}>{bulkUnlocked ? "Bulk unlocked!" : `${remaining} to bulk`}</span>
+              </div>
+              <div style={{ height: "6px", borderRadius: "3px", background: "#1a1a1a", overflow: "hidden" }}>
+                <div style={{
+                  height: "100%", borderRadius: "3px",
+                  width: `${Math.min(100, (totalQty / 640) * 100)}%`,
+                  background: bulkUnlocked ? "#39ff14" : `linear-gradient(90deg, #555, ${totalQty > 400 ? "#ffd700" : "#888"})`,
+                  transition: "width 0.3s ease",
+                }} />
+              </div>
+            </div>
+
+            {/* Pricing */}
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", color: "#888", marginBottom: "4px" }}>
+              <span>Rate</span>
+              <span style={{ color: bulkUnlocked ? "#39ff14" : "#fff", fontWeight: 600 }}>${rate.toFixed(2)}/8th</span>
+            </div>
+            {bulkUnlocked && (
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", color: "#39ff14", marginBottom: "4px" }}>
+                <span>You save</span>
+                <span style={{ fontWeight: 600 }}>−${savings.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>
+              </div>
+            )}
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "18px", fontWeight: 800, color: "#fff", marginTop: "8px", paddingTop: "8px", borderTop: "1px solid #1a1a1a" }}>
+              <span>Total</span>
+              <span>${orderTotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>
+            </div>
+
+            {bulkUnlocked ? (
+              <p style={{ fontSize: "12px", color: "#39ff14", marginTop: "8px", fontWeight: 600 }}>
+                Mix &amp; match bulk discount applied across all strains
+              </p>
+            ) : (
+              <p style={{ fontSize: "12px", color: "#888", marginTop: "8px" }}>
+                Add {remaining} more 8ths (any strain) to unlock $10.00/8th pricing{remaining <= 128 ? " 🔥" : ""}
+              </p>
+            )}
+            <p style={{ fontSize: "11px", color: "#555", marginTop: "4px" }}>Final pricing confirmed after review. COD payment.</p>
           </div>
 
           <textarea
@@ -237,6 +287,8 @@ export default function CartPage() {
             {submitting ? "Submitting..." : "Submit Order"}
           </button>
         </div>
+          );
+        })()}
       </div>
     </div>
   );

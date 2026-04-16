@@ -34,7 +34,7 @@ const FEATURED_STRAINS = [
 ];
 
 const STATS = [
-  { value: "22+", label: "Premium Strains" },
+  { value: "20+", label: "Premium Strains" },
   { value: "35%", label: "Max THC" },
   { value: "100%", label: "Lab Tested" },
   { value: "OK", label: "Licensed" },
@@ -164,7 +164,7 @@ export default function Home() {
 
         <div style={{ textAlign: "center", marginTop: "56px" }}>
           <Link href="/strains" className="tb-btn tb-btn--outline">
-            View All 22 Strains &rarr;
+            View All 20 Strains &rarr;
           </Link>
         </div>
       </section>

@@ -46,8 +46,6 @@ const STRAINS: Record<string, { name: string; type: string; thc: string; desc: s
   "wedding-cake": { name: "Wedding Cake", type: "Hybrid", thc: "32%", desc: "Rich, tangy sweetness with peppery undertones. Always a top seller." },
   "project-z": { name: "Project Z", type: "Sativa", thc: "33%", desc: "Energizing sativa with exotic genetics. Great for daytime customers." },
   "tear-gas": { name: "Tear Gas", type: "Sativa", thc: "32%", desc: "Pungent, gassy, and potent. An unforgettable sativa experience." },
-  "bacio-gelato": { name: "Bacio Gelato", type: "Hybrid", thc: "30%", desc: "Creamy gelato flavor with balanced effects. A crowd-pleaser every time." },
-  "jealousy": { name: "Jealousy", type: "Hybrid", thc: "31%", desc: "Funky, gassy terps with a smooth smoke. Hot genetics that customers ask for by name." },
   "rancid-rainbows": { name: "Rancid Rainbows", type: "Hybrid", thc: "30%", desc: "Funky and colorful. Rotten-sweet terpenes with psychedelic bag appeal." },
   "sherbert-pie": { name: "Sherbert Pie", type: "Indica", thc: "28%", desc: "Creamy sherbet meets warm pie crust. Smooth, dessert-forward indica." },
   "sour-cream": { name: "Sour Cream", type: "Hybrid", thc: "26%", desc: "Smooth, creamy, and subtly tangy. A sativa-leaning hybrid with classic flavor." },

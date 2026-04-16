@@ -44,8 +44,6 @@ const ALL_STRAINS = [
   { name: "Skywalker OG", type: "Indica", thc: "33%", slug: "skywalker-og", inventory: 0 },
   { name: "Project Z", type: "Sativa", thc: "33%", slug: "project-z", inventory: 0 },
   { name: "Tear Gas", type: "Sativa", thc: "32%", slug: "tear-gas", inventory: 0 },
-  { name: "Bacio Gelato", type: "Hybrid", thc: "30%", slug: "bacio-gelato", inventory: 0 },
-  { name: "Jealousy", type: "Hybrid", thc: "31%", slug: "jealousy", inventory: 0 },
   { name: "Rancid Rainbows", type: "Hybrid", thc: "30%", slug: "rancid-rainbows", inventory: 0 },
   { name: "Sherbert Pie", type: "Indica", thc: "28%", slug: "sherbert-pie", inventory: 0 },
   { name: "Sour Cream", type: "Hybrid", thc: "26%", slug: "sour-cream", inventory: 0 },
